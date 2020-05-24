@@ -19,11 +19,11 @@ urlpatterns = [
     path('v1/local/city/<int:pk>', LocalByCity.as_view(), name='Local By City'),
     path('v1/local/type/<int:pk>', LocalByType.as_view(), name='Local By City'),
     path('v1/local/company/<int:pk>', LocalByCompany.as_view(), name='Local By City'),
+    path('v1/local/distance/<path:orig>/<path:dest>', LocalDistance.as_view(), name='Local Distance'),
     path('v1/rating/', RatingList.as_view(), name='Rating List'),
     path('v1/rating/<int:pk>', RatingDetail.as_view(), name='Rating Detail'),
     path('v1/rating/local/<int:pk>', RatingByLocal.as_view(), name='Rating By City'),
     path('v1/rating/user/<int:pk>', RatingByUser.as_view(), name='Rating By City'),
-
     path('v1/comment/', CommentList.as_view(), name='Comment List'),
     path('v1/comment/<int:pk>', CommentDetail.as_view(), name='Comment Detail'),
     path('v1/comment/local/<int:pk>', CommentByLocal.as_view(), name='Comment By City'),

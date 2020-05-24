@@ -1,6 +1,7 @@
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
-
+from dreamtours_app import bbdd_manager
+from . import map_manager
 from .models import *
 from .serializer import *
 
@@ -117,6 +118,20 @@ class LocalByCity(generics.ListAPIView):
         queryset = Local.objects.filter(city_id=self.kwargs['pk'])
         return queryset
     serializer_class = LocalSerializer
+    pagination_class = None
+
+class LocalByCity(generics.ListAPIView):
+    def get_queryset(self):
+        queryset = Local.objects.filter(city_id=self.kwargs['pk'])
+        return queryset
+    serializer_class = LocalSerializer
+    pagination_class = None
+
+class LocalDistance(generics.ListAPIView):
+    def get_queryset(self):
+        id = map_manager.serilize_distance(map_manager.get_distance(self.kwargs['orig'], self.kwargs['dest']))
+        return Distance.objects.filter(id=id)
+    serializer_class = DistanceSerializer
     pagination_class = None
 
 """

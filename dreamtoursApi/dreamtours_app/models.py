@@ -23,6 +23,7 @@ class Particular(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False)
     dni = models.CharField(max_length=9, blank=False)
+    address = models.CharField(max_length=150, blank=False)
     objects = models.Manager()
 
     def __str__(self):
@@ -59,3 +60,18 @@ class Comment(models.Model):
     particular = models.ForeignKey(Particular, on_delete=models.CASCADE, blank=False)
     local = models.ForeignKey(Local, on_delete=models.CASCADE, blank=False)
     comment = models.CharField(max_length=150, blank=False)
+
+class Distance(models.Model):
+    destination = models.CharField(max_length=100, blank=False)
+    origin = models.CharField(max_length=100, blank=False)
+    distance = models.CharField(max_length=20, blank=False)
+    objects = models.Manager()
+
+    def __str__(self):
+        return str(self.destination)+" "+str(self.origin)+" "+str(self.distance)
+
+'''class Distances():
+    def __init__(self, destination, origin, distance):
+        self.destination = destination
+        self.origin = origin
+        self.distance = distance'''

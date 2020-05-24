@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from dreamtours_app.models import User, City, Particular, Company, LocalType, Local, Rating, Comment
+from django.db import models
+from dreamtours_app.models import User, City, Particular, Company, LocalType, Local, Rating, Comment, Distance
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -27,6 +28,7 @@ class ParticularSerializer(serializers.ModelSerializer):
                   'city',
                   'user',
                   'dni',
+                  'address'
         )
 
 class CompanySerializer(serializers.ModelSerializer):
@@ -73,3 +75,13 @@ class CommentSerializer(serializers.ModelSerializer):
                   'local',
                   'comment'
         )
+
+class DistanceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Distance
+        fields = ('id',
+                  'destination',
+                  'origin',
+                  'distance'
+        )
+
