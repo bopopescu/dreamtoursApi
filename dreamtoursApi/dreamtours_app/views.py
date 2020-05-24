@@ -1,6 +1,7 @@
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
 from dreamtours_app import bbdd_manager
+from django.http import JsonResponse
 from . import map_manager
 from .models import *
 from .serializer import *
@@ -127,12 +128,21 @@ class LocalByCity(generics.ListAPIView):
     serializer_class = LocalSerializer
     pagination_class = None
 
-class LocalDistance(generics.ListAPIView):
+'''class LocalDistance(generics.ListAPIView):
     def get_queryset(self):
         id = map_manager.serilize_distance(map_manager.get_distance(self.kwargs['orig'], self.kwargs['dest']))
         return Distance.objects.filter(id=id)
     serializer_class = DistanceSerializer
-    pagination_class = None
+    pagination_class = None'''
+
+def LocalDistance(request, orig, dest):
+    distance = map_manager.serilize_distance(map_manager.get_distance(orig, dest))
+    data = {
+        'origin': distance.origin,
+        'destination': distance.destination,
+        'distance': distance.distance
+    }
+    return JsonResponse(data)
 
 """
 Rating View
@@ -161,6 +171,19 @@ class RatingByLocal(generics.ListAPIView):
         return queryset
     serializer_class = RatingSerializer
     pagination_class = None
+
+def get_rating_media(request, id):
+    data = {
+        'local_id': id,
+        'total_rating': bbdd_manager.get_rate_media(id),
+        'rate_amount': bbdd_manager.get_rate_amount(id)
+    }
+    return JsonResponse(data)
+
+'''def get_rating_media(request):
+    objs = Mymodel.objects.all()
+    jsondata = serializers.serialize('json', objs)
+    return HttpResponse(jsondata, content_type='application/json')'''
 
 """
 Comment View

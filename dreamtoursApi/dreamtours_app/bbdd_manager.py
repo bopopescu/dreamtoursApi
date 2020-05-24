@@ -39,6 +39,26 @@ def get_last_distance_id():
         return result[0]+1
     return 1
 
+def get_rate_amount(id):
+    mydb = get_connector()
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT COUNT(particular_id) as amount FROM dreamtours_app_rating WHERE local_id = "+str(id)+" ")
+    myresult = mycursor.fetchall()
+    mycursor.close()
+    for result in myresult:
+        return result[0]
+    return 0
+
+def get_rate_media(id):
+    mydb = get_connector()
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT (SUM(rate) / ("+str(get_rate_amount(id))+"))as media FROM dreamtours_app_rating WHERE local_id = "+str(id)+"")
+    myresult = mycursor.fetchall()
+    mycursor.close()
+    for result in myresult:
+        return result[0]
+    return 0
+
 def get_connector():
     return mysql.connector.connect(
             host="sv57.ifastnet6.org",
