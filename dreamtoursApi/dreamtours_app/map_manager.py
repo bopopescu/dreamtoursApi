@@ -1,5 +1,4 @@
 from dreamtours_app import bbdd_manager
-from dreamtours_app.models import Distance
 import requests, json
 
 def get_distance(origin, destination):

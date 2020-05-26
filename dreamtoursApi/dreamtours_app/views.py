@@ -2,6 +2,12 @@ from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
 from dreamtours_app import bbdd_manager
 from django.http import JsonResponse
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from django.http import HttpResponse
+
 from . import map_manager
 from .models import *
 from .serializer import *
