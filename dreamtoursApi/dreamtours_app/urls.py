@@ -7,6 +7,7 @@ v = 'v2'
 urlpatterns = [
     path(v+'/user/', UserList.as_view(), name='User List'),
     path(v+'/user/<int:pk>', UserDetail.as_view(), name='User Detail'),
+    path(v+'/user/<path:name>&<path:passwd>', VerifyUser, name='Verify user'),
     path(v+'/city/', CityList.as_view(), name='City List'),
     path(v+'/city/<int:pk>', CityDetail.as_view(), name='City Detail'),
     path(v+'/particular/', ParticularList.as_view(), name='Particular List'),

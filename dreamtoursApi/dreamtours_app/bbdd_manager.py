@@ -59,6 +59,41 @@ def get_rate_media(id):
         return result[0]
     return 0
 
+def get_company(id):
+    mydb = get_connector()
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT * FROM dreamtours_app_company WHERE user_id='" + str(id) + "'")
+    myresult = mycursor.fetchall()
+    mycursor.close()
+    for result in myresult:
+        return result[0]
+    return 0
+
+def get_particular(id):
+    mydb = get_connector()
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT * FROM dreamtours_app_particular WHERE user_id='" + str(id) + "'")
+    myresult = mycursor.fetchall()
+    mycursor.close()
+    for result in myresult:
+        return result[0]
+    return 0
+
+def verify_user(name, passwd):
+    mydb = get_connector()
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT id FROM dreamtours_app_user WHERE username='"+name+"' and password = '"+passwd+"'")
+    myresult = mycursor.fetchall()
+    mycursor.close()
+    for result in myresult:
+        id = get_particular(result[0])
+        if id != 0:
+            return "particular", id
+        id = get_company(result[0])
+        if id != 0:
+            return "company", id
+    return "none", 0
+
 def get_connector():
     return mysql.connector.connect(
             host="sv57.ifastnet6.org",

@@ -29,6 +29,21 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     pagination_class = None
 
+"""class VerifyUser(generics.ListAPIView):
+    def get_queryset(self):
+        queryset = User.objects.filter(username=self.kwargs['name']).filter(password=self.kwargs['pass'])
+        return queryset
+    serializer_class = UserSerializer
+    pagination_class = None"""
+
+def VerifyUser(request, name, passwd):
+    json = bbdd_manager.verify_user(name, passwd)
+    data = {
+        'state': json[0],
+        'id': json[1]
+    }
+    return JsonResponse(data)
+
 """
 City View
 """
